@@ -12,7 +12,7 @@
 //@NoArgsConstructor
 //@AllArgsConstructor
 //@Table(name = "passport_data")
-//public class DataPassport {
+//templates class DataPassport {
 //
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)

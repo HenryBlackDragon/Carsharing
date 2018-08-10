@@ -11,7 +11,7 @@
 //@NoArgsConstructor
 //@AllArgsConstructor
 //@Table(name = "users_info")
-//public class UsersInfo {
+//templates class UsersInfo {
 //
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)

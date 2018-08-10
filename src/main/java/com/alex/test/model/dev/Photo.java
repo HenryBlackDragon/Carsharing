@@ -11,7 +11,7 @@
 //@AllArgsConstructor
 //@NoArgsConstructor
 //@Table(name = "photos")
-//public class Photo {
+//templates class Photo {
 //
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)

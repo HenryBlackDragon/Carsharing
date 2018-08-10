@@ -11,7 +11,7 @@
 //@AllArgsConstructor
 //@NoArgsConstructor
 //@Table(name = "base_latlng")
-//public class BaseLatLng {
+//templates class BaseLatLng {
 //
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)

@@ -1,6 +1,7 @@
-package com.grabduck.demo.springsecurity;
+package com.alex.test.config;
 
-import com.grabduck.demo.springsecurity.services.UserService;
+
+import com.alex.test.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,14 +22,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/readme.txt", "/css/*").permitAll()
-                .anyRequest().authenticated()
+                    .authorizeRequests()
+                    .antMatchers("/images/*", "/css/*").permitAll()
+                    .anyRequest().authenticated()
                 .and()
-                .formLogin().permitAll()
+                    .formLogin().loginPage("/login").permitAll()
                 .and()
-                .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll();
-
+                    .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll();
     }
 
     @Bean
@@ -38,9 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-                .userDetailsService(userService);
-
-//                .passwordEncoder(bcryptPasswordEncoder());
+        auth.userDetailsService(userService);
     }
 }

@@ -12,7 +12,7 @@
 //@AllArgsConstructor
 //@NoArgsConstructor
 //@Table(name = "driving_license")
-//public class DrivingLicense {
+//templates class DrivingLicense {
 //
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
