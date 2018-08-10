@@ -24,7 +24,7 @@ public class UserService implements UserDetailsService {
                 .username("user")
                 .password("password")
                 .authorities(Collections.singleton(Role.USER))
-                .accountNonExpired(true)
+                .accountNonExpired(false)
                 .accountNonLocked(true)
                 .credentialsNonExpired(true)
                 .enabled(true)
