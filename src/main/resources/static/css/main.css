@@ -1,0 +1,64 @@
+body, html {
+    height: 90%;
+    background: #ededed;
+}
+
+.form-control:focus {
+    border-color: #87b658;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #87b658;
+    outline: 0 none;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: auto;
+}
+
+.text-decoration {
+    font-family: 'Kirang Haerang', cursive;
+    font-size: 4em;
+    color: #444549;
+}
+
+.round {
+    width: 140px;
+    height: 120px;
+    border-radius: 30px;
+    border: 1px solid #444549;
+    box-shadow: 0 0 7px #666;
+}
+
+.main-container {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    flex-direction: column;
+}
+
+.border-around-form {
+    width: 450px;
+    background: white;
+
+    border: 1px solid #a4a4a4;
+    box-shadow: 0 0 7px #666;
+    padding: 30px 0;
+}
+
+.block-regist {
+    padding-top: 10px;
+}
+
+.btn-color-back{
+    background: #87b658;
+}
+
+.block-regist a {
+    /*color: #007bff;*/
+    color: #87b658;
+
+    text-decoration: none;
+}
