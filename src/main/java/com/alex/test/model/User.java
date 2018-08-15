@@ -4,11 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Set;
 
 @Data
@@ -28,7 +26,9 @@ public class User implements UserDetails {
     private String password;
     private String username;
     private boolean active;
-    private String activationCode;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
+    private ActivationCode activationCode;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
@@ -36,7 +36,6 @@ public class User implements UserDetails {
     private Set<Role> authorities;
 
     //    @OneToOne(cascade = CascadeType.ALL)
-//    @OnDelete(action = OnDeleteAction.CASCADE)
 //    @JoinColumn(name = "user_info_id", referencedColumnName = "user_info_id")
 //    private UsersInfo usersInfo;
 

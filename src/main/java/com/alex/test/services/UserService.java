@@ -1,7 +1,9 @@
 package com.alex.test.services;
 
+import com.alex.test.model.ActivationCode;
 import com.alex.test.model.Role;
 import com.alex.test.model.User;
+import com.alex.test.repository.ActivationCodeRepository;
 import com.alex.test.repository.UserRepository;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
 
     @Autowired
+    private ActivationCodeRepository activationCodeRepository;
+
+    @Autowired
     private MailSender mailSender;
 
     @Autowired
@@ -32,41 +37,53 @@ public class UserService implements UserDetailsService {
         return userRepository.findByEmail(email);
     }
 
-    public boolean addUser(User user) {
-        User userFromDB = userRepository.findByEmail(user.getEmail());
 
-        if (userFromDB != null) {
+    public boolean addUser(User user) {
+        if (userRepository.findByEmail(user.getEmail()) != null) {
             return false;
         }
 
-        user.setActivationCode(UUID.randomUUID().toString());
         user.setAuthorities(Collections.singleton(Role.USER));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setActivationCode(ActivationCode.builder()
+                .code(UUID.randomUUID().toString())
+                .user(user)
+                .build());
+
         userRepository.save(user);
+
+        sendMessageToUser(user);
+
+        return true;
+    }
+
+    private void sendMessageToUser(User user){
 
         if (!StringUtils.isEmpty(user.getEmail())) {
             String msg = String.format(
                     "Hello, %s! Welcome to Carsharing. Please, visit next link: http://localhost:8080/activate/%s",
                     user.getEmail(),
-                    user.getActivationCode()
+                    user.getActivationCode().getCode()
             );
 
-            mailSender.send(user.getEmail(), "Activation code", msg);
+            mailSender.send(user.getEmail(), "Activation activationCodeRepository", msg);
         }
-
-        return true;
     }
 
     public boolean activateUser(String code) {
-        User user = userRepository.findByActivationCode(code);
+        ActivationCode activationCodeFromDB = activationCodeRepository.findActivationCodeByCode(code);
 
-        if (user == null) {
+        if (activationCodeFromDB == null || activationCodeFromDB.getUser() == null) {
             return false;
-        }
+        } else {
+            User user = activationCodeFromDB.getUser();
 
-        user.setActivationCode(null);
-        user.setActive(true);
-        userRepository.save(user);
+            activationCodeFromDB.setCode(null);
+            user.setActive(true);
+
+            activationCodeRepository.save(activationCodeFromDB);
+            userRepository.save(user);
+        }
 
         return true;
     }
