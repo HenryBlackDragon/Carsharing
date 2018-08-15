@@ -30,17 +30,12 @@ public class RegistrationController {
         return "redirect:/login";
     }
 
-    @GetMapping("/activate/{code}")
-    public String activate(@PathVariable String code, Model model ) {
-        boolean isActivated = userService.activateUser(code);
-
-        if (isActivated) {
-            model.addAttribute("msg", "User activate");
+    @GetMapping(value = "/activate/{code}")
+    public String activate(@PathVariable String code) {
+        if (userService.activateUser(code)) {
+            return "redirect_to_login";
         } else {
-            model.addAttribute("msg", "=(");
+            return "login";
         }
-
-        return "login";
     }
-
 }

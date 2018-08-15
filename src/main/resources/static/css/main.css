@@ -1,6 +1,6 @@
 body, html {
     height: 90%;
-    background: #ededed;
+    background: #f6f6f6;
 }
 
 .form-control:focus {
@@ -31,21 +31,24 @@ body, html {
 }
 
 .main-container {
-
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 100%;
     flex-direction: column;
 }
 
-.border-around-form {
-    width: 450px;
+.border-around {
+    width: 350px;
     background: white;
 
     border: 1px solid #a4a4a4;
-    box-shadow: 0 0 7px #666;
-    padding: 30px 0;
+    box-shadow: 0 0 2px #666;
+    border-radius: 5px;
+    padding: 10px 0;
+}
+
+.block-logo {
+    margin-top: 15px;
 }
 
 .block-regist {
@@ -57,8 +60,16 @@ body, html {
 }
 
 .block-regist a {
-    /*color: #007bff;*/
     color: #87b658;
 
     text-decoration: none;
+}
+.block-error{
+    margin-bottom: 20px;
+    background: #ffdce0;
+}
+
+.block-logout{
+    margin-bottom: 20px;
+    background: #b9d8ff;
 }

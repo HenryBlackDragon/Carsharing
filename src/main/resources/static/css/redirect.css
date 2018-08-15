@@ -1,0 +1,9 @@
+.block-text {
+    margin-top: 20px;
+}
+
+.border-around-text {
+    border: 1px solid #a4a4a4;
+    border-radius: 10px;
+    padding: 10px;
+}
