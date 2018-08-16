@@ -55,7 +55,7 @@ body, html {
     padding-top: 10px;
 }
 
-.btn-color-back{
+.btn-color-back {
     background: #87b658;
 }
 
@@ -64,12 +64,26 @@ body, html {
 
     text-decoration: none;
 }
-.block-error{
+
+.block-error {
     margin-bottom: 20px;
     background: #ffdce0;
 }
 
-.block-logout{
+.block-logout {
     margin-bottom: 20px;
     background: #b9d8ff;
+}
+
+.context-center {
+    height: 100%;
+}
+
+.block-forgot-password{
+   text-align: end !important;
+}
+
+.text-forgot{
+    font-size: 1.2em;
+    text-decoration: none !important;
 }

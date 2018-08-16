@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
+import org.springframework.ui.Model;
 
 import java.util.Collections;
 import java.util.UUID;
@@ -34,12 +34,15 @@ public class UserService implements UserDetailsService {
     // find by email
     @Override
     public UserDetails loadUserByUsername(@NonNull String email) throws UsernameNotFoundException {
-        return userRepository.findByEmail(email);
+        return userRepository.findUserByEmail(email);
     }
 
-
-    public boolean addUser(User user) {
-        if (userRepository.findByEmail(user.getEmail()) != null) {
+    public boolean addUser(User user, Model model) {
+        if (userRepository.findUserByUsername(user.getUsername()) != null) {
+            model.addAttribute("usernameError", "The username is already in use");
+            return false;
+        } else if (userRepository.findUserByEmail(user.getEmail()) != null) {
+            model.addAttribute("emailError", "This email address has been taken");
             return false;
         }
 
@@ -52,23 +55,17 @@ public class UserService implements UserDetailsService {
 
         userRepository.save(user);
 
-        sendMessageToUser(user);
+        String msg = String.format(
+                "Hello, %s! Welcome to Carsharing. Please, visit next link: http://localhost:8080/activate/%s",
+                user.getUsername(),
+                user.getActivationCode().getCode()
+        );
+
+        mailSender.sendMessageToUser(user.getEmail(), "Activation code", msg);
 
         return true;
     }
 
-    private void sendMessageToUser(User user){
-
-        if (!StringUtils.isEmpty(user.getEmail())) {
-            String msg = String.format(
-                    "Hello, %s! Welcome to Carsharing. Please, visit next link: http://localhost:8080/activate/%s",
-                    user.getEmail(),
-                    user.getActivationCode().getCode()
-            );
-
-            mailSender.send(user.getEmail(), "Activation activationCodeRepository", msg);
-        }
-    }
 
     public boolean activateUser(String code) {
         ActivationCode activationCodeFromDB = activationCodeRepository.findActivationCodeByCode(code);
@@ -78,11 +75,11 @@ public class UserService implements UserDetailsService {
         } else {
             User user = activationCodeFromDB.getUser();
 
-            activationCodeFromDB.setCode(null);
+            user.setActivationCode(null);
             user.setActive(true);
 
-            activationCodeRepository.save(activationCodeFromDB);
             userRepository.save(user);
+            activationCodeRepository.delete(activationCodeFromDB);
         }
 
         return true;
