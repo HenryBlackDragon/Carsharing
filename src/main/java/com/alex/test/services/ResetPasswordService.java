@@ -5,6 +5,7 @@ import com.alex.test.model.User;
 import com.alex.test.repository.ActivationCodeRepository;
 import com.alex.test.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -20,6 +21,9 @@ public class ResetPasswordService {
 
     @Autowired
     private MailSender mailSender;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public boolean sendCodeForResetPassword(String email) {
         User userByEmail = userRepository.findUserByEmail(email);
@@ -50,17 +54,18 @@ public class ResetPasswordService {
     public boolean activeResetPassword(String code) {
         ActivationCode activationCodeFromDB = activationCodeRepository.findActivationCodeByCode(code);
 
-        if (activationCodeFromDB == null || activationCodeFromDB.getUser() == null) {
-            return false;
-        } else {
-            User user = activationCodeFromDB.getUser();
+        return activationCodeFromDB != null && activationCodeFromDB.getUser() != null;
+    }
 
-            user.setActivationCode(null);
+    public void changePassword(String code, String password) {
+        ActivationCode activationCodeFromDB = activationCodeRepository.findActivationCodeByCode(code);
 
-            userRepository.save(user);
-            activationCodeRepository.delete(activationCodeFromDB);
+        User user = activationCodeFromDB.getUser();
 
-            return true;
-        }
+        user.setPassword(passwordEncoder.encode(password));
+        user.setActivationCode(null);
+
+        userRepository.save(user);
+        activationCodeRepository.delete(activationCodeFromDB);
     }
 }
