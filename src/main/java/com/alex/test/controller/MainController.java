@@ -11,7 +11,12 @@ public class MainController {
 
     @RequestMapping("/")
     public String getMainPage(User user) {
-        return "index";
+        return "mainpage";
+    }
+
+    @RequestMapping("/my_profile")
+    public String getProfile(User user) {
+        return "my_profile";
     }
 
     @RequestMapping("/login")

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class ResetPasswordController {
@@ -24,8 +23,10 @@ public class ResetPasswordController {
     }
 
     @PostMapping("/reset-password")
-    public String getForgetPassword(User user) {
+    public String getForgetPassword(User user, Model model) {
         if (!passwordService.sendCodeForResetPassword(user.getEmail())) {
+            model.addAttribute("notFindEmailError", "Can't find that email.");
+
             return "reset-password-email";
         }
 

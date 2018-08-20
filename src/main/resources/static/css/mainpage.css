@@ -1,0 +1,63 @@
+.text-decoration {
+    font-family: 'Kirang Haerang', cursive;
+    font-size: 2em;
+    color: #444549;
+}
+
+.round {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #444549;
+    box-shadow: 0 0 4px #666;
+    padding: 2px;
+}
+
+.nav-block-person {
+    width: 200px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.search-size {
+    width: 450px !important;
+    height: 40px !important;
+}
+
+.form-control:focus {
+    border-color: #87b658;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #87b658;
+    outline: 0 none;
+}
+
+.btn-outline-dark:hover, .btn-outline-dark:focus, .btn-outline-dark:link, .btn-outline-dark:active, .btn-outline-dark:visited {
+    color: black !important;
+    background-color: #f8f9fa !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.btn {
+    border: none !important;
+}
+
+.btn-outline-dark:not(:disabled):not(.disabled).active, .btn-outline-dark:not(:disabled):not(.disabled):active,
+.show > .btn-outline-dark.dropdown-toggle {
+    background-color: #f8f9fa !important;
+    color: black !important;
+}
+
+.dropdown-item:not(:disabled):not(.disabled).active, .dropdown-item:not(:disabled):not(.disabled):active,
+.show > .dropdown-item.dropdown-toggle {
+    background-color: #f8f9fa !important;
+    color: black !important;
+}
+
+.nav-link:focus, .navbar-brand:focus, .dropdown-item:focus {
+    outline: 0 none;
+}
+
+.dropdown-item:hover{
+    background-color: #afe493 !important;
+}
+
