@@ -1,6 +1,5 @@
 package com.alex.test.controller;
 
-import com.alex.test.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,13 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MainController {
 
     @RequestMapping("/")
-    public String getMainPage(User user) {
+    public String getMainPage() {
         return "mainpage";
-    }
-
-    @RequestMapping("/my_profile")
-    public String getProfile(User user) {
-        return "my_profile";
     }
 
     @RequestMapping("/login")

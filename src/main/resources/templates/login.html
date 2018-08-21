@@ -19,7 +19,7 @@
         </div>
 
         <div th:if="${error}" class="border-around block-error">
-            Invalid username or password
+            Неправильный email или пароль
         </div>
         <div th:if="${logout}" class="border-around block-logout">
             You have been logged out
@@ -29,23 +29,23 @@
             <form class="form-signin" method="post">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                 <div class="form-group">
-                    <input type="email" class="form-control" placeholder="Enter email" name="username"/>
+                    <input type="email" class="form-control" placeholder="Введите email" name="username"/>
                 </div>
 
                 <div class="block-forgot-password">
                     <a href="/reset-password" class="text-decoration text-forgot">
-                        Forgot password?</a>
+                        Забыли пароль?</a>
                 </div>
 
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="Password" name="password"/>
+                    <input type="password" class="form-control" placeholder="Введите пароль" name="password"/>
                 </div>
-                <button type="submit" class="btn btn-success btn-block btn-color-back">Sign in</button>
+                <button type="submit" class="btn btn-success btn-block btn-color-back">Войти</button>
             </form>
         </div>
     </div>
     <div class="block-regist">
-        Not registered? <a href="/registration">Create an account</a>
+        Еще не зарегистрированы? <a href="/registration">Создать аккаунт</a>
     </div>
 </div>
 </body>

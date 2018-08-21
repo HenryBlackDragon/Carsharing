@@ -25,10 +25,6 @@
     border-bottom: none;
 }
 
-.profile-photo {
-    /*display: block;*/
-}
-
 .profile-info {
     display: flex;
     align-items: center;
@@ -50,6 +46,7 @@
 .photo-btn {
     width: 250px;
     margin-top: 15px;
+    border: 1px solid green !important;
 }
 
 .detail-info {
@@ -77,4 +74,23 @@
 
 .block-change-pas > a {
     text-decoration: none;
+}
+
+.border-around {
+    width: 350px;
+    background: white;
+
+    border: 1px solid #a4a4a4;
+    box-shadow: 0 0 2px #666;
+    border-radius: 5px;
+    padding: 10px 0;
+}
+
+.block-success {
+    margin-bottom: 20px;
+    background: #b6ffb6;
+}
+
+.block-success > span {
+    margin-left: 10px;
 }
