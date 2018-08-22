@@ -19,7 +19,7 @@ public class ResetPasswordController {
 
     @GetMapping("/reset-password")
     public String getForgetPassword() {
-        return "reset-password-email";
+        return "auth/reset-password-email";
     }
 
     @PostMapping("/reset-password")
@@ -27,7 +27,7 @@ public class ResetPasswordController {
         if (!passwordService.sendCodeForResetPassword(user.getEmail())) {
             model.addAttribute("notFindEmailError", "Can't find that email.");
 
-            return "reset-password-email";
+            return "auth/reset-password-email";
         }
 
         return "redirect:/login";
@@ -36,7 +36,7 @@ public class ResetPasswordController {
     @GetMapping(value = "/activate-reset/{code}")
     public String activate(@PathVariable String code) {
         if (passwordService.activeResetPassword(code)) {
-            return "reset-password";
+            return "auth/reset-password";
         } else {
             return "redirect:/login";
         }
@@ -53,13 +53,13 @@ public class ResetPasswordController {
             model.addAttribute("passwordError", "Password cannot be empty");
             model.addAttribute("confirmPasswordError", "Password confirmation cannot be empty");
 
-            return "reset-password";
+            return "auth/reset-password";
         }
 
         if (!password.equals(passwordConfirm)) {
             model.addAttribute("differentPasswordError", "Passwords are different");
 
-            return "reset-password";
+            return "auth/reset-password";
         }
 
         passwordService.changePassword(code, password);

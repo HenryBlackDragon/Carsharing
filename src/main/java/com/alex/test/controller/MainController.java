@@ -21,6 +21,6 @@ public class MainController {
         model.addAttribute("error", error != null);
         model.addAttribute("logout", logout != null);
 
-        return "login";
+        return "auth/login";
     }
 }

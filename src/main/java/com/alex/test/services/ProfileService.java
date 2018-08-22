@@ -1,7 +1,7 @@
 package com.alex.test.services;
 
+import com.alex.test.model.DataPassport;
 import com.alex.test.model.User;
-import com.alex.test.model.UserInfo;
 import com.alex.test.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,33 +20,16 @@ public class ProfileService {
     public User refreshProfile(User user, String username, String phone) {
         User userFromDB = userRepository.findUserByEmail(user.getEmail());
 
-        if (userFromDB == null) {
-            return new User();
-        }
-
-        if ((StringUtils.isEmpty(username) && StringUtils.isEmpty(phone)) ||
-                (StringUtils.isEmpty(username) && StringUtils.isEmpty(phone))) {
+        if (userFromDB == null || (StringUtils.isEmpty(username) && StringUtils.isEmpty(phone))) {
             return new User();
         }
 
         userFromDB.setUsername(username);
-
-        if (userFromDB.getUserInfo() == null) {
-            userFromDB.setUserInfo(UserInfo.builder()
-                    .phoneNumber(phone)
-                    .user(userFromDB)
-                    .build());
-        } else {
-            userFromDB.getUserInfo().setPhoneNumber(phone);
-        }
+        userFromDB.getUserInfo().setPhoneNumber(phone);
 
         userRepository.save(userFromDB);
 
         return userFromDB;
-    }
-
-    private User refreshProfileInfo() {
-        return new User();
     }
 
     public User refreshPassword(String email, String newPassword) {
@@ -67,4 +50,29 @@ public class ProfileService {
         return passwordEncoder.matches(oldPassword, userPassword);
     }
 
+    public void addPassport(DataPassport dataPassport, String email) {
+        User userByEmail = userRepository.findUserByEmail(email);
+
+        userByEmail.getUserInfo()
+                .setDataPassport(
+                        DataPassport.builder()
+                                .surname(dataPassport.getSurname())
+                                .name(dataPassport.getName())
+                                .patronymic(dataPassport.getPatronymic())
+                                .series(dataPassport.getSeries())
+                                .numPassport(dataPassport.getNumPassport())
+                                .organizationIssued(dataPassport.getOrganizationIssued())
+                                .dateIssued(dataPassport.getDateIssued())
+                                .dateBorn(dataPassport.getDateBorn())
+                                .placeBorn(dataPassport.getPlaceBorn())
+                                .userInfoPassport(userByEmail.getUserInfo())
+                                .build()
+                );
+
+        userRepository.save(userByEmail);
+    }
+
+    public boolean checkUsername(String username) {
+        return userRepository.findUserByUsername(username) == null;
+    }
 }

@@ -3,6 +3,7 @@ package com.alex.test.services;
 import com.alex.test.model.ActivationCode;
 import com.alex.test.model.Role;
 import com.alex.test.model.User;
+import com.alex.test.model.UserInfo;
 import com.alex.test.repository.ActivationCodeRepository;
 import com.alex.test.repository.UserRepository;
 import lombok.NonNull;
@@ -39,10 +40,10 @@ public class UserService implements UserDetailsService {
 
     public boolean addUser(User user, Model model) {
         if (userRepository.findUserByUsername(user.getUsername()) != null) {
-            model.addAttribute("usernameError", "The username is already in use");
+            model.addAttribute("usernameError", "Такой пользователь уже существует");
             return false;
         } else if (userRepository.findUserByEmail(user.getEmail()) != null) {
-            model.addAttribute("emailError", "This email address has been taken");
+            model.addAttribute("emailError", "Email занят");
             return false;
         }
 
@@ -50,6 +51,9 @@ public class UserService implements UserDetailsService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setActivationCode(ActivationCode.builder()
                 .code(UUID.randomUUID().toString())
+                .user(user)
+                .build());
+        user.setUserInfo(UserInfo.builder()
                 .user(user)
                 .build());
 

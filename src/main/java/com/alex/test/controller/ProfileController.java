@@ -1,13 +1,18 @@
 package com.alex.test.controller;
 
+import com.alex.test.model.DataPassport;
 import com.alex.test.model.User;
 import com.alex.test.services.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
+import java.util.Map;
 
 import static com.alex.test.controller.ControllerUtils.getUserFromSecurityContextHolder;
 import static com.alex.test.controller.ControllerUtils.updateSecurityContextHolder;
@@ -22,8 +27,12 @@ public class ProfileController {
     public String getProfile(Model model) {
         model.addAttribute("username", getUserFromSecurityContextHolder().getUsername());
 
-        if (getUserFromSecurityContextHolder().getUserInfo() != null) {
+        if (getUserFromSecurityContextHolder().getUserInfo().getPhoneNumber() != null) {
             model.addAttribute("phone", getUserFromSecurityContextHolder().getUserInfo().getPhoneNumber());
+        }
+
+        if (getUserFromSecurityContextHolder().getUserInfo().getDataPassport() != null) {
+            model.addAttribute("passportData", getUserFromSecurityContextHolder().getUserInfo().getDataPassport());
         }
 
         return "my_profile";
@@ -34,14 +43,29 @@ public class ProfileController {
         return "settings";
     }
 
+    @GetMapping("/passport")
+    public String getDataPassport() {
+        return "data_passport";
+    }
+
+//    @PostMapping(value = "/my_profile", params = "update_data_passport")
+//    public String updatePassport() {
+//
+//        return "redirect:/data_passport";
+//    }
+
     @PostMapping(value = "/my_profile", params = "update_profile")
     public String refreshProfile(String username, String phone, Model model) {
+        if(!profileService.checkUsername(username)){
+            model.addAttribute("userExistsError", "Такой пользователь уже существует");
+
+            return "redirect:/my_profile";
+        }
+
         User userFromService = profileService.refreshProfile(getUserFromSecurityContextHolder(), username, phone);
 
         if (userFromService.getUserInfo() == null) {
-            model.addAttribute("username", getUserFromSecurityContextHolder().getUsername());
-
-            return "my_profile";
+            return "redirect:/my_profile";
         }
 
         updateSecurityContextHolder(userFromService);
@@ -49,7 +73,7 @@ public class ProfileController {
         model.addAttribute("username", getUserFromSecurityContextHolder().getUsername());
         model.addAttribute("phone", getUserFromSecurityContextHolder().getUserInfo().getPhoneNumber());
 
-        return "my_profile";
+        return "redirect:/my_profile";
     }
 
     @PostMapping(value = "/settings", params = "update_password")
@@ -78,5 +102,20 @@ public class ProfileController {
         return "settings";
     }
 
+    @PostMapping(value = "/passport", params = "data_passport")
+    public String addDataPassport(@Valid DataPassport dataPassport, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrorsMap(bindingResult);
+            model.mergeAttributes(errorsMap);
+
+            return "data_passport";
+        }
+
+        profileService.addPassport(dataPassport, getUserFromSecurityContextHolder().getEmail());
+
+        model.addAttribute("success", " Паспорт успешно добавлен");
+
+        return "data_passport";
+    }
 
 }

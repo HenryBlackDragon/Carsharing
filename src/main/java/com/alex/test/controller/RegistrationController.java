@@ -20,7 +20,7 @@ public class RegistrationController {
 
     @GetMapping("/registration")
     public String registration() {
-        return "registration";
+        return "auth/registration";
     }
 
     @PostMapping("/registration")
@@ -29,11 +29,11 @@ public class RegistrationController {
             Map<String, String> errorsMap = ControllerUtils.getErrorsMap(bindingResult);
             model.mergeAttributes(errorsMap);
 
-            return "registration";
+            return "auth/registration";
         }
 
         if (!userService.addUser(user, model)) {
-            return "registration";
+            return "auth/registration";
         }
 
         return "redirect:/login";
@@ -42,9 +42,9 @@ public class RegistrationController {
     @GetMapping(value = "/activate/{code}")
     public String activate(@PathVariable String code) {
         if (userService.activateUser(code)) {
-            return "redirect_to_login";
+            return "auth/redirect_to_login";
         } else {
-            return "not_active";
+            return "auth/not_active";
         }
     }
 }

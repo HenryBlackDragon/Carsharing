@@ -20,10 +20,9 @@ public class UserInfo {
     @Column(name = "user_info_id")
     private Long id;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "passport_id", referencedColumnName = "passport_id")
-//    private DataPassport dataPassport;
-//
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userInfoPassport")
+    private DataPassport dataPassport;
+
 //    @OneToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "driving_license_id", referencedColumnName = "driving_license_id")
 //    private DrivingLicense license;

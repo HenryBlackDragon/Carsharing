@@ -94,3 +94,9 @@
 .block-success > span {
     margin-left: 10px;
 }
+
+.block-save-passport {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
