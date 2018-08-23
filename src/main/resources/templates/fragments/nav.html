@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light" th:fragment="head_nav_panel">
+    <div class="container">
+        <a class="navbar-brand text-decoration" href="#">Carsharing</a>
+
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link elem-size" href="#">Разместить объявление</a>
+            </li>
+        </ul>
+
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2 search-size" type="search" placeholder="Поиск" aria-label="Search"/>
+        </form>
+
+        <div class="nav-block-person form-inline">
+            <div class="btn-group">
+                <button class="btn btn-outline-dark dropdown-toggle" type="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    <img src="/static/images/ghost.png" th:src="@{/images/ghost.png}" alt=""
+                         class="round"/>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/my_profile">Личный кабинет</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                    <hr/>
+                    <a class="dropdown-item" th:href="@{/logout}" href="#">Выйти</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<nav th:fragment="profile_nav_panel" class="menu">
+    <h3 class="menu-item menu-heading">Личный кабинет</h3>
+    <a class="menu-item" href="/my_profile">Профиль</a>
+    <a class="menu-item" href="/settings">Настройки</a>
+    <a class="menu-item" href="/passport">Паспортные данные</a>
+    <a class="menu-item" href="/driver_license">Водительское удостоверение</a>
+</nav>
+</body>
+</html>

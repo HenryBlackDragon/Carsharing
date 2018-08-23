@@ -33,14 +33,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/css/**","/images/**", "/registration", "/activate/*", "/reset-password","/activate-reset/*")
                     .permitAll()
                     .anyRequest().authenticated()
-                .and()
-                    .formLogin()
+                    .and()
+                .formLogin()
                     .loginPage("/login")
                     .permitAll()
-                .and()
+                    .and()
                     .rememberMe()
-                .and()
-                    .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).permitAll();
+                    .and()
+                .logout()
+                    .permitAll();
     }
 
     @Override
