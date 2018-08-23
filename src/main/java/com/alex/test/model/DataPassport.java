@@ -5,11 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
@@ -35,6 +35,7 @@ public class DataPassport {
     private String patronymic;
 
     @NotBlank(message = "Укажите серию паспорта")
+    @Size(max = 2, message = "Серия не должна превышать более двух букв")
     private String series;
 
     @NotNull(message = "Укажите номер паспорта")

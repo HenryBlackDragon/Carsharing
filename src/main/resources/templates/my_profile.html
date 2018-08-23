@@ -46,7 +46,6 @@
     </div>
 </nav>
 
-
 <div class="container" style="margin-top: 30px">
     <div class="row">
         <div class="col-3 float-left pr-4">
@@ -55,7 +54,7 @@
                 <a class="menu-item" href="">Профиль</a>
                 <a class="menu-item" href="/settings">Настройки</a>
                 <a class="menu-item" href="/passport">Паспортные данные</a>
-                <a class="menu-item" href="">Водительское удостоверение</a>
+                <a class="menu-item" href="/driver_license">Водительское удостоверение</a>
             </nav>
         </div>
         <div class="col-9 float-left">
@@ -96,40 +95,62 @@
                 <h4>Паспортные данные:</h4>
                 <hr/>
                 <div class="row">
-                    <div class="col-4 text-center">
+                    <div class="col-4">
                         <p> Фамилия: <span th:text="${passportData.getSurname()}"></span></p>
                     </div>
-                    <div class="col-4 text-center">
+                    <div class="col-4">
                         <p> Имя: <span th:text="${passportData.getName()}"></span></p>
                     </div>
-                    <div class="col-4 text-center">
+                    <div class="col-4">
                         <p>Отчество: <span th:text="${passportData.getPatronymic()}"></span></p>
                     </div>
-                    <div class="col-4 text-center">
+                    <div class="col-4">
                         <p>Серия паспорта: <span th:text="${passportData.getSeries()}"></span></p>
                     </div>
                     <div class="col-4"></div>
-                    <div class="col-4 text-center">
+                    <div class="col-4">
                         <p>Номер паспорта: <span th:text="${passportData.getNumPassport()}"></span></p>
                     </div>
-                    <div class="col-4 text-center">
+                    <div class="col-4">
                         <p>Кем выдан: <span th:text="${passportData.getOrganizationIssued()}"></span></p>
                     </div>
                     <div class="col-4"></div>
-                    <div class="col-4 text-center">
+                    <div class="col-4">
                         <p>Год выдачи: <span th:text="${passportData.getDateIssued()}"></span></p>
                     </div>
-                    <div class="col-4 text-center">
+                    <div class="col-4">
                         <p>Дата рождения: <span th:text="${passportData.getDateBorn()}"></span></p>
                     </div>
                     <div class="col-4"></div>
-                    <div class="col-4 text-center">
+                    <div class="col-4">
                         <p>Место рождения: <span th:text="${passportData.getPlaceBorn()}"></span></p>
                     </div>
                 </div>
-                <div>
-                    <button type="submit" class="btn btn-success" name="update_data_passport">Обновить данные
-                    </button>
+            </div>
+
+            <div th:if="${drivingLicense}" style="margin-top: 10px">
+                <h4>Водительское удостоверение:</h4>
+                <hr/>
+                <div class="row">
+                    <div class="col-4">
+                        <p>Серия: <span th:text="${drivingLicense.getSeries()}"></span></p>
+                    </div>
+                    <div class="col-4">
+                        <p>Номер водительского удостоверения: <span th:text="${drivingLicense.getNumLicense()}"></span>
+                        </p>
+                    </div>
+                    <div class="col-4">
+                        <p>Категория: <span th:text="${drivingLicense.getCategory()}"></span></p>
+                    </div>
+                    <div class="col-4">
+                        <p>Кем выдано: <span th:text="${drivingLicense.getOrganizationIssued()}"></span></p>
+                    </div>
+                    <div class="col-4">
+                        <p>Когда выдано: <span th:text="${drivingLicense.getDateIssued()}"></span></p>
+                    </div>
+                    <div class="col-4">
+                        <p>Дата окончания: <span th:text="${drivingLicense.getDateEnd()}"></span></p>
+                    </div>
                 </div>
             </div>
         </div>

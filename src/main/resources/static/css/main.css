@@ -3,11 +3,11 @@ body, html {
     background: #f6f6f6;
 }
 
-.form-control:focus {
-    border-color: #87b658;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #87b658;
-    outline: 0 none;
-}
+/*.form-control:focus {*/
+    /*border-color: #87b658;*/
+    /*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #87b658;*/
+    /*outline: 0 none;*/
+/*}*/
 
 .form-signin {
     width: 100%;

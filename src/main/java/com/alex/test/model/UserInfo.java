@@ -23,9 +23,9 @@ public class UserInfo {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userInfoPassport")
     private DataPassport dataPassport;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "driving_license_id", referencedColumnName = "driving_license_id")
-//    private DrivingLicense license;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userInfoDriverLicense")
+    private DrivingLicense license;
 
     @Column(name = "photo")
     private String photo;

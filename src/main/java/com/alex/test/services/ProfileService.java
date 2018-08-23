@@ -1,6 +1,7 @@
 package com.alex.test.services;
 
 import com.alex.test.model.DataPassport;
+import com.alex.test.model.DrivingLicense;
 import com.alex.test.model.User;
 import com.alex.test.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class ProfileService {
         return passwordEncoder.matches(oldPassword, userPassword);
     }
 
-    public void addPassport(DataPassport dataPassport, String email) {
+    public User addPassport(DataPassport dataPassport, String email) {
         User userByEmail = userRepository.findUserByEmail(email);
 
         userByEmail.getUserInfo()
@@ -70,9 +71,32 @@ public class ProfileService {
                 );
 
         userRepository.save(userByEmail);
+
+        return userByEmail;
     }
 
     public boolean checkUsername(String username) {
         return userRepository.findUserByUsername(username) == null;
+    }
+
+    public User addDriverLicense(DrivingLicense drivingLicense, String email) {
+        User userByEmail = userRepository.findUserByEmail(email);
+
+        userByEmail.getUserInfo()
+                .setLicense(
+                        DrivingLicense.builder()
+                                .series(drivingLicense.getSeries())
+                                .numLicense(drivingLicense.getNumLicense())
+                                .dateIssued(drivingLicense.getDateIssued())
+                                .organizationIssued(drivingLicense.getOrganizationIssued())
+                                .dateEnd(drivingLicense.getDateEnd())
+                                .category(drivingLicense.getCategory())
+                                .userInfoDriverLicense(userByEmail.getUserInfo())
+                                .build()
+                );
+
+        userRepository.save(userByEmail);
+
+        return userByEmail;
     }
 }

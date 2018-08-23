@@ -1,6 +1,7 @@
 package com.alex.test.controller;
 
 import com.alex.test.model.DataPassport;
+import com.alex.test.model.DrivingLicense;
 import com.alex.test.model.User;
 import com.alex.test.services.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,10 @@ public class ProfileController {
             model.addAttribute("passportData", getUserFromSecurityContextHolder().getUserInfo().getDataPassport());
         }
 
+        if (getUserFromSecurityContextHolder().getUserInfo().getLicense() != null) {
+            model.addAttribute("drivingLicense", getUserFromSecurityContextHolder().getUserInfo().getLicense());
+        }
+
         return "my_profile";
     }
 
@@ -48,24 +53,23 @@ public class ProfileController {
         return "data_passport";
     }
 
-//    @PostMapping(value = "/my_profile", params = "update_data_passport")
-//    public String updatePassport() {
-//
-//        return "redirect:/data_passport";
-//    }
+    @GetMapping("/driver_license")
+    public String getDriverLicense() {
+        return "driver_license";
+    }
 
     @PostMapping(value = "/my_profile", params = "update_profile")
     public String refreshProfile(String username, String phone, Model model) {
-        if(!profileService.checkUsername(username)){
+        if (!profileService.checkUsername(username)) {
             model.addAttribute("userExistsError", "Такой пользователь уже существует");
 
-            return "redirect:/my_profile";
+            return getProfile(model);
         }
 
         User userFromService = profileService.refreshProfile(getUserFromSecurityContextHolder(), username, phone);
 
         if (userFromService.getUserInfo() == null) {
-            return "redirect:/my_profile";
+            return getProfile(model);
         }
 
         updateSecurityContextHolder(userFromService);
@@ -73,7 +77,7 @@ public class ProfileController {
         model.addAttribute("username", getUserFromSecurityContextHolder().getUsername());
         model.addAttribute("phone", getUserFromSecurityContextHolder().getUserInfo().getPhoneNumber());
 
-        return "redirect:/my_profile";
+        return getProfile(model);
     }
 
     @PostMapping(value = "/settings", params = "update_password")
@@ -111,11 +115,30 @@ public class ProfileController {
             return "data_passport";
         }
 
-        profileService.addPassport(dataPassport, getUserFromSecurityContextHolder().getEmail());
+        User user = profileService.addPassport(dataPassport, getUserFromSecurityContextHolder().getEmail());
+
+        updateSecurityContextHolder(user);
 
         model.addAttribute("success", " Паспорт успешно добавлен");
 
         return "data_passport";
     }
 
+    @PostMapping(value = "/driver_license", params = "driver_license")
+    public String addDriverLicense(@Valid DrivingLicense drivingLicense, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrorsMap(bindingResult);
+            model.mergeAttributes(errorsMap);
+
+            return "driver_license";
+        }
+
+        User user = profileService.addDriverLicense(drivingLicense, getUserFromSecurityContextHolder().getEmail());
+
+        updateSecurityContextHolder(user);
+
+        model.addAttribute("success", " Водительское удостоверение успешно добавлено");
+
+        return "driver_license";
+    }
 }
