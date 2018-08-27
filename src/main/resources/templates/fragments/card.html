@@ -7,7 +7,7 @@
 <!--<nav >-->
 
 <div class="container" th:fragment="desk (cars)">
-    <div class="card-deck">
+    <div class="card-columns">
         <div class="card" th:each="car: ${cars}">
             <img class="card-img-top tes" src="/static/images/volkswagen-polo_1.jpg"
                  th:src="@{/images/volkswagen-polo_1.jpg}" alt="Card image cap"/>
