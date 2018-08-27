@@ -88,7 +88,6 @@
                     </div>
                 </div>
             </div>
-
             <div th:if="${drivingLicense}" style="margin-top: 10px">
                 <h4>Водительское удостоверение:</h4>
                 <hr/>
@@ -114,6 +113,44 @@
                     </div>
                 </div>
             </div>
+
+            <form method="post" enctype="multipart/form-data">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="files" name="files" multiple="multiple"
+                          />
+                    <label class="custom-file-label" for="files">Выберите файлы:</label>
+                </div>
+                <div>
+                    <button class="btn btn-outline-success photo-btn" name="photo">фото</button>
+                </div>
+            </form>
+
+            <div id="preview">
+
+            </div>
+
+            <!--<form method="post" enctype="multipart/form-data" id="uploadImages">-->
+            <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
+            <!--<input type="file" id="addImages" multiple="multiple" name="files"/>-->
+            <!--<ul id="uploadImagesList">-->
+            <!--<li class="item template">-->
+            <!--<span class="img-wrap">-->
+            <!--<img src="image.jpg" alt=""/>-->
+            <!--</span>-->
+            <!--<span class="delete-link" title="Удалить">Удалить</span>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--<div class="clear"></div>-->
+            <!--<div>-->
+            <!--<input type="submit" value="Отправить" name="photo"/>-->
+            <!--</div>-->
+            <!--</form>-->
+
+
+            <!--<div th:if="${user}">-->
+            <!--<img th:src="@{'/photo/'+${user.getPhoto()}}"/>-->
+            <!--</div>-->
         </div>
     </div>
 </div>

@@ -1,14 +1,13 @@
 package com.alex.test.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -33,6 +32,7 @@ public class User implements UserDetails {
 
     @NotBlank(message = "Username cannot be empty")
     private String username;
+
     private boolean active;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
@@ -45,6 +45,9 @@ public class User implements UserDetails {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> authorities;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userCar")
+    private List<Car> cars = new ArrayList<>();
 
     //    @OneToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "user_info_id", referencedColumnName = "user_info_id")
@@ -69,4 +72,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return isActive();
     }
+
 }

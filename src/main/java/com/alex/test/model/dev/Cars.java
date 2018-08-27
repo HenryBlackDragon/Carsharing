@@ -12,7 +12,7 @@
 //@AllArgsConstructor
 //@NoArgsConstructor
 //@Table(name = "cars")
-//templates class Cars {
+//templates class Car {
 //
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)

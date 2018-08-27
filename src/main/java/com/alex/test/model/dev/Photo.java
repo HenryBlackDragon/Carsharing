@@ -23,5 +23,5 @@
 ////, referencedColumnName = "cars_id"
 //    @ManyToOne(cascade = CascadeType.REMOVE)
 //    @JoinColumn(name = "cars_id")
-//    private Cars photoCars;
+//    private Car photoCars;
 //}

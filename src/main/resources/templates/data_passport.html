@@ -111,13 +111,27 @@
                             <select id="placeBorn" class="custom-select form-control" name="placeBorn"
                                     th:classappend="${placeBornError} ? 'is-invalid' : ''"
                                     th:value="${dataPassport} ? ${dataPassport.placeBorn} : 'Город'">
-                                <option th:selected="selected" th:disabled="disabled">Город:</option>
-                                <option value="Брест">Брест</option>
-                                <option value="Витебс">Витебс</option>
-                                <option value="Гомель">Гомель</option>
-                                <option value="Гродно">Гродно</option>
-                                <option value="Могилев">Могилев</option>
-                                <option value="Минск">Минск</option>
+                                <option th:selected="${dataPassport == null or dataPassport.placeBorn == null}"
+                                        th:disabled="disabled">Город:
+                                </option>
+                                <option th:selected="${dataPassport != null and dataPassport.placeBorn == 'Брест'}"
+                                        value="Брест">Брест
+                                </option>
+                                <option th:selected="${dataPassport != null and dataPassport.placeBorn == 'Витебс'}"
+                                        value="Витебс">Витебс
+                                </option>
+                                <option th:selected="${dataPassport != null and dataPassport.placeBorn == 'Гомель'}"
+                                        value="Гомель">Гомель
+                                </option>
+                                <option th:selected="${dataPassport != null and dataPassport.placeBorn == 'Гродно'}"
+                                        value="Гродно">Гродно
+                                </option>
+                                <option th:selected="${dataPassport != null and dataPassport.placeBorn == 'Могилев'}"
+                                        value="Могилев">Могилев
+                                </option>
+                                <option th:selected="${dataPassport != null and dataPassport.placeBorn == 'Минск'}"
+                                        value="Минск">Минск
+                                </option>
                             </select>
                             <div th:if="${placeBornError}" class="invalid-feedback">
                                 <span th:text="${placeBornError}"></span>
