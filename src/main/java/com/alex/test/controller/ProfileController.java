@@ -2,8 +2,8 @@ package com.alex.test.controller;
 
 import com.alex.test.model.DataPassport;
 import com.alex.test.model.DrivingLicense;
+import com.alex.test.model.Role;
 import com.alex.test.model.User;
-import com.alex.test.repository.UserRepository;
 import com.alex.test.services.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,14 +13,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
 import java.util.Map;
-import java.util.UUID;
 
 import static com.alex.test.controller.ControllerUtils.getUserFromSecurityContextHolder;
 import static com.alex.test.controller.ControllerUtils.updateSecurityContextHolder;
@@ -31,15 +26,13 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
-    @Autowired
-    private UserRepository userRepository;
-
     @Value("${upload.path}")
     private String uploadPath;
 
     @GetMapping("/my_profile")
     public String getProfile(Model model) {
-        model.addAttribute("username", getUserFromSecurityContextHolder().getUsername());
+        model.addAttribute("user", getUserFromSecurityContextHolder());
+        model.addAttribute("roleAdmin", Role.ADMIN);
 
         if (getUserFromSecurityContextHolder().getUserInfo().getPhoneNumber() != null) {
             model.addAttribute("phone", getUserFromSecurityContextHolder().getUserInfo().getPhoneNumber());
@@ -155,17 +148,15 @@ public class ProfileController {
         return "driver_license";
     }
 
-
-    @PostMapping(value = "/my_profile", params = "photo")
-    public String addPhoto(@RequestParam("files") MultipartFile[] files, Model model) throws IOException {
-
-        User find = getUserFromSecurityContextHolder();
-
-        for (MultipartFile file:files
-             ) {
-            System.out.println(file.getOriginalFilename());
-        }
-
+//    @PostMapping(value = "/my_profile", params = "photo")
+//    public String addPhoto(@RequestParam("files") MultipartFile file, Model model) throws IOException {
+//
+//        User find = getUserFromSecurityContextHolder();
+//        if(file.getOriginalFilename().equals("")){
+//
+//            return "";
+//        }
+//
 //        if (file != null) {
 //            File uploadDir = new File(uploadPath);
 //
@@ -187,7 +178,7 @@ public class ProfileController {
 //
 //            model.addAttribute("user", userFromSecurityContextHolder);
 //        }
-
-        return "my_profile";
-    }
+//
+//        return "my_profile";
+//    }
 }

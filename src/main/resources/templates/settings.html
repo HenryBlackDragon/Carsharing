@@ -7,8 +7,9 @@
     <link href="https://fonts.googleapis.com/css?family=Kirang+Haerang" rel="stylesheet"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="/static/css/mainpage.css" th:href="@{/css/mainpage.css}" type="text/css"/>
-    <link rel="stylesheet" href="/static/css/my_profile.css" th:href="@{/css/my_profile.css}" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/mainpage.css" th:href="@{/css/mainpage.css}"/>
+    <link rel="stylesheet" href="/static/css/my_profile.css" th:href="@{/css/my_profile.css}"/>
+    <link rel="stylesheet" href="/static/css/basic.css" th:href="@{/css/basic.css}"/>
 </head>
 <body>
 <nav th:replace="/fragments/nav :: head_nav_panel"></nav>
@@ -56,11 +57,11 @@
                             </div>
                         </div>
 
-                        <div class="block-change-pas">
+                        <div id="change-pas" class="d-flex align-items-center mt-2">
                             <button type="submit" class="btn btn-success btn-block btn-color-back"
                                     name="update_password">Сохранить
                             </button>
-                            <a href="#" class="">Забыли пароль?</a>
+                            <a class="text-decoration-none" href="#">Забыли пароль?</a>
                         </div>
 
                     </form>

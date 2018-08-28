@@ -10,6 +10,11 @@
 
 .card {
     max-width: 540px;
+    height: 580px;
+}
+
+.card-body {
+    min-height: 230px !important;
 }
 
 .tes {
@@ -34,3 +39,4 @@ div.col-6 > span:nth-child(1) {
         widows: 1
     }
 }
+

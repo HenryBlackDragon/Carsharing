@@ -10,8 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-@Data
 @Entity
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -48,10 +49,6 @@ public class User implements UserDetails {
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "userCar")
     private List<Car> cars = new ArrayList<>();
-
-    //    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "user_info_id", referencedColumnName = "user_info_id")
-//    private UsersInfo usersInfo;
 
     @Override
     public boolean isAccountNonExpired() {

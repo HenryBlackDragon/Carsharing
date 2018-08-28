@@ -29,7 +29,15 @@ public class AdController {
     }
 
     @PostMapping("/new_ad")
-    public String createNewAd(@Valid Car car, BindingResult bindingResult, Model model) {
+    public String createNewAd(@Valid Car car,
+                              BindingResult bindingResult,
+                              Model model) {
+//        if (file.getOriginalFilename().equals("")) {
+//            model.addAttribute("photoError", "");
+//
+//            return "new_add";
+//        }
+
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrorsMap(bindingResult);
             model.mergeAttributes(errorsMap);
@@ -45,5 +53,36 @@ public class AdController {
 
         return "new_ad";
     }
+
+//    @PostMapping(value = "/my_profile", params = "photo")
+//    public String addPhoto(Model model) throws IOException {
+//
+//        User find = getUserFromSecurityContextHolder();
+//
+//
+//        if (file != null) {
+//            File uploadDir = new File(uploadPath);
+//
+//            if (!uploadDir.exists()) {
+//                uploadDir.mkdir();
+//            }
+//
+//            String uuidFile = UUID.randomUUID().toString();
+//            String resultFile = uuidFile + "." + file.getOriginalFilename();
+//
+//            file.transferTo(new File(uploadPath + "/" + resultFile));
+//
+//            find.setPhoto(resultFile);
+//            updateSecurityContextHolder(find);
+//
+//            userRepository.save(find);
+//
+//            User userFromSecurityContextHolder = getUserFromSecurityContextHolder();
+//
+//            model.addAttribute("user", userFromSecurityContextHolder);
+//        }
+//
+//        return "my_profile";
+//    }
 
 }

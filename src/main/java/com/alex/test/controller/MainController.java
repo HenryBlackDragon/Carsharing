@@ -27,8 +27,7 @@ public class MainController {
 
     @RequestMapping("/")
     public String getMainPage(Model model) {
-        List<Car> cars = mainService.getCar();
-//        cars.forEach(car -> System.out.println(car.getMark()));
+        List<Car> cars = mainService.getAllCars();
         if (!CollectionUtils.isEmpty(cars)) {
             model.addAttribute("cars", cars);
         }

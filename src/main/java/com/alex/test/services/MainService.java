@@ -13,7 +13,7 @@ public class MainService {
     @Autowired
     private CarRepository carRepository;
 
-    public List<Car> getCar() {
+    public List<Car> getAllCars() {
         return carRepository.findAll();
     }
 }

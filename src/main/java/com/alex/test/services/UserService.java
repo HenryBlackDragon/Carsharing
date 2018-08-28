@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -87,5 +88,9 @@ public class UserService implements UserDetailsService {
         }
 
         return true;
+    }
+
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
     }
 }

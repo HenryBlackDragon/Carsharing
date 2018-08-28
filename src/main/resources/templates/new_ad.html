@@ -4,11 +4,12 @@
     <title>New ad</title>
     <meta charset="utf-8"/>
 
+    <link href="https://fonts.googleapis.com/css?family=Kirang+Haerang" rel="stylesheet"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"/>
     <link rel="stylesheet" href="/static/css/my_profile.css" th:href="@{/css/my_profile.css}" type="text/css"/>
     <link rel="stylesheet" href="/static/css/mainpage.css" th:href="@{/css/mainpage.css}" type="text/css"/>
-    <link rel="stylesheet" href="/static/css/new_ad.css" th:href="@{/css/new_ad.css}" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/basic.css" th:href="@{/css/new_ad.css}" type="text/css"/>
 
 </head>
 <body>
@@ -23,13 +24,38 @@
                 <span style="color: red">  * — звездочкой помечены поля, обязательные для заполнения.</span>
             </small>
         </div>
-
         <div class="form-row">
             <div class="col-md-4 mb-3">
                 <label for="mark">Марка<sup>*</sup> :</label>
-                <input type="text" class="form-control" id="mark" name="mark"
-                       th:classappend="${markError} ? 'is-invalid' : ''"
-                       th:value="${car} ? ${car.mark} : ''"/>
+                <select id="mark" class="custom-select form-control" name="mark"
+                        th:classappend="${markError} ? 'is-invalid' : ''">
+                    <option th:selected="${car == null or car.mark == null}" th:disabled="disabled">Марка:</option>
+                    <option th:selected="${car != null and car.mark == 'Audi'}" value="Audi">Audi</option>
+                    <option th:selected="${car != null and car.mark == 'BMW'}" value="BMW">BMW</option>
+                    <option th:selected="${car != null and car.mark == 'Citroen'}" value="Citroen">Citroen</option>
+                    <option th:selected="${car != null and car.mark == 'Fiat'}" value="Fiat">Fiat</option>
+                    <option th:selected="${car != null and car.mark == 'Ford'}" value="Ford">Ford</option>
+                    <option th:selected="${car != null and car.mark == 'Honda'}" value="Honda">Honda</option>
+                    <option th:selected="${car != null and car.mark == 'Hummer'}" value="Hummer">Hummer</option>
+                    <option th:selected="${car != null and car.mark == 'Hyundai'}" value="Hyundai">Hyundai</option>
+                    <option th:selected="${car != null and car.mark == 'Jaguar'}" value="Jaguar">Jaguar</option>
+                    <option th:selected="${car != null and car.mark == 'Jeep'}" value="Jeep">Jeep</option>
+                    <option th:selected="${car != null and car.mark == 'Kia'}" value="Kia">Kia</option>
+                    <option th:selected="${car != null and car.mark == 'Mazda'}" value="Mazda">Mazda</option>
+                    <option th:selected="${car != null and car.mark == 'Mercedes'}" value="Mercedes">Mercedes</option>
+                    <option th:selected="${car != null and car.mark == 'Nissan'}" value="Nissan">Nissan</option>
+                    <option th:selected="${car != null and car.mark == 'Peugeot'}" value="Peugeot">Peugeot</option>
+                    <option th:selected="${car != null and car.mark == 'Porsche'}" value="Porsche">Porsche</option>
+                    <option th:selected="${car != null and car.mark == 'Renault'}" value="Renault">Renault</option>
+                    <option th:selected="${car != null and car.mark == 'Skoda'}" value="Skoda">Skoda</option>
+                    <option th:selected="${car != null and car.mark == 'Tesla'}" value="Tesla">Tesla</option>
+                    <option th:selected="${car != null and car.mark == 'Toyota'}" value="Toyota">Toyota</option>
+                    <option th:selected="${car != null and car.mark == 'Volkswagen'}" value="Volkswagen">Volkswagen
+                    </option>
+                    <option th:selected="${car != null and car.mark == 'Volvo'}" value="Volvo">Volvo</option>
+                </select>
+
+
                 <div th:if="${markError}" class="invalid-feedback">
                     <span th:text="${markError}"></span>
                 </div>
@@ -45,9 +71,68 @@
             </div>
             <div class="col-md-2 mb-3">
                 <label for="releaseYear">Год выпуска<sup>*</sup> :</label>
-                <input type="number" class="form-control" id="releaseYear" name="releaseYear"
-                       th:classappend="${releaseYearError} ? 'is-invalid' : ''"
-                       th:value="${car} ? ${car.releaseYear} : ''"/>
+                <select id="releaseYear" class="custom-select form-control" name="releaseYear"
+                        th:classappend="${releaseYearError} ? 'is-invalid' : ''">
+                    <option value="2018">2018</option>
+                    <option value="2017">2017</option>
+                    <option value="2016">2016</option>
+                    <option value="2015">2015</option>
+                    <option value="2014">2014</option>
+                    <option value="2013">2013</option>
+                    <option value="2012">2012</option>
+                    <option value="2011">2011</option>
+                    <option value="2010">2010</option>
+                    <option value="2009">2009</option>
+                    <option value="2008">2008</option>
+                    <option value="2007">2007</option>
+                    <option value="2006">2006</option>
+                    <option value="2005">2005</option>
+                    <option value="2004">2004</option>
+                    <option value="2003">2003</option>
+                    <option value="2002">2002</option>
+                    <option value="2001">2001</option>
+                    <option value="2000">2000</option>
+                    <option value="1999">1999</option>
+                    <option value="1998">1998</option>
+                    <option value="1997">1997</option>
+                    <option value="1996">1996</option>
+                    <option value="1995">1995</option>
+                    <option value="1994">1994</option>
+                    <option value="1993">1993</option>
+                    <option value="1992">1992</option>
+                    <option value="1991">1991</option>
+                    <option value="1990">1990</option>
+                    <option value="1989">1989</option>
+                    <option value="1988">1988</option>
+                    <option value="1987">1987</option>
+                    <option value="1986">1986</option>
+                    <option value="1985">1985</option>
+                    <option value="1984">1984</option>
+                    <option value="1983">1983</option>
+                    <option value="1982">1982</option>
+                    <option value="1981">1981</option>
+                    <option value="1980">1980</option>
+                    <option value="1979">1979</option>
+                    <option value="1978">1978</option>
+                    <option value="1977">1977</option>
+                    <option value="1976">1976</option>
+                    <option value="1975">1975</option>
+                    <option value="1974">1974</option>
+                    <option value="1973">1973</option>
+                    <option value="1972">1972</option>
+                    <option value="1971">1971</option>
+                    <option value="1970">1970</option>
+                    <option value="1969">1969</option>
+                    <option value="1968">1968</option>
+                    <option value="1967">1967</option>
+                    <option value="1966">1966</option>
+                    <option value="1965">1965</option>
+                    <option value="1964">1964</option>
+                    <option value="1963">1963</option>
+                    <option value="1962">1962</option>
+                    <option value="1961">1961</option>
+                    <option value="1960">1960</option>
+                </select>
                 <div th:if="${releaseYearError}" class="invalid-feedback">
                     <span th:text="${releaseYearError}"></span>
                 </div>
@@ -152,18 +237,18 @@
         <div class="form-row">
             <div class="col-md-4 mb-3">
                 <label for="carDamages">Данные о состоянии машины:</label>
-                <textarea class="form-control" id="carDamages" rows="3"></textarea>
+                <textarea class="form-control" id="carDamages" rows="3" name="carDamages"></textarea>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="dataAboutCar">Наличие дополнительных аксессуаров:</label>
-                <textarea class="form-control" id="dataAboutCar" rows="3"></textarea>
+                <textarea class="form-control" id="dataAboutCar" rows="3" name="dataAboutCar"></textarea>
             </div>
             <div class="col-md-4 mb-3">
                 <label for="insuranceInformation">Информация о страховке:</label>
-                <textarea class="form-control" id="insuranceInformation" rows="3"></textarea>
+                <textarea class="form-control" id="insuranceInformation" rows="3"
+                          name="insuranceInformation"></textarea>
             </div>
         </div>
-
 
         <div class="form-row">
             <div class="col-md-12 mb-3">

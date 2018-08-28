@@ -25,12 +25,6 @@
     border-bottom: none;
 }
 
-.profile-info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
 .form-signin {
     margin-left: 0 !important;
     padding-left: 0 !important;
@@ -61,19 +55,9 @@
     margin-top: 20px;
 }
 
-.block-change-pas {
-    margin-top: 20px;
-    display: flex;
-    align-items: center;
-}
-
-.block-change-pas > button {
+#change-pas > button {
     width: 150px;
     margin-right: 20px;
-}
-
-.block-change-pas > a {
-    text-decoration: none;
 }
 
 .border-around {
@@ -93,10 +77,4 @@
 
 .block-success > span {
     margin-left: 10px;
-}
-
-.block-save-documents {
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
 }

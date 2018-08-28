@@ -4,35 +4,36 @@
     <meta charset="UTF-8"/>
 </head>
 <body>
-<!--<nav >-->
 
 <div class="container" th:fragment="desk (cars)">
-    <div class="card-columns">
+    <div class="card-columns my-2">
         <div class="card" th:each="car: ${cars}">
             <img class="card-img-top tes" src="/static/images/volkswagen-polo_1.jpg"
                  th:src="@{/images/volkswagen-polo_1.jpg}" alt="Card image cap"/>
             <div class="card-body">
                 <!--<h4 class="card-title">Volkswagen Polo</h4>-->
-                <h4 class="card-title" th:text="${car.model}"></h4>
+                <h4 class="card-title" th:text="${car.mark} + ' ' + ${car.model}"></h4>
 
                 <div class="row">
-                    <div class="col-6"><span>Год выпуска: </span><span>1111</span></div>
-                    <div class="col-6"><span>Пробег: </span><span>13 546 546</span></div>
-                    <div class="col-6"><span>Количество мест: </span><span>4</span></div>
-                    <div class="col-6"><span>Тип коробки передач: </span><span>механическая</span></div>
-                    <div class="col-6"><span>Тип кузова: </span><span>внедорожник</span></div>
-                    <div class="col-6"><span>Привод: </span><span>передний</span></div>
-                    <div class="col-6"><span>ДВС/электрическая: </span><span>электрическая</span></div>
-                    <div class="col-6"><span>Тип топлива: </span><span>Бензин</span></div>
+                    <div class="col-6"><span>Год выпуска: </span><span th:text="${car.releaseYear}"></span></div>
+                    <div class="col-6"><span>Пробег: </span><span th:text="${car.mileage}"></span></div>
+                    <div class="col-6"><span>Количество мест: </span><span th:text="${car.countOfSeats}"></span></div>
+                    <div class="col-6"><span>Тип коробки передач: </span><span th:text="${car.boxType}"></span></div>
+                    <div class="col-6"><span>Тип кузова: </span><span th:text="${car.bodyType}"></span></div>
+                    <div class="col-6"><span>Привод: </span><span th:text="${car.gear}"></span></div>
+                    <div class="col-6"><span>ДВС/электрическая: </span><span th:text="${car.engine}"></span></div>
+                    <div class="col-6"><span>Тип топлива: </span><span th:text="${car.fuelType}"></span></div>
                 </div>
             </div>
             <div class="card-footer">
                 <div class="row">
                     <div class="col-8">
-                        <small class="text-muted"><span>Владелец: </span><span>User</span></small>
+                        <small class="text-muted"><span>Владелец: </span><span
+                                th:text="${car.userCar.username}"></span></small>
                     </div>
                     <div class="col-3">
-                        <small class="text-muted"><span>Цена: </span><span>100$</span></small>
+                        <small class="text-muted"><span>Цена: </span><span
+                                th:text="${car.price} + ${car.typePrice}"></span></small>
                     </div>
                     <div class="col-1">
                         X

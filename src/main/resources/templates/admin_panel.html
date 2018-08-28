@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Kirang+Haerang" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Kirang+Haerang" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="/static/css/mainpage.css" th:href="@{/css/mainpage.css}"/>
+    <link rel="stylesheet" href="/static/css/basic.css" th:href="@{/css/basic.css}"/>
+</head>
+<body>
+<nav th:replace="/fragments/nav :: head_nav_panel"></nav>
+
+<div class="container mt-2">
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-user" role="tab"
+               aria-controls="nav-user" aria-selected="true">Пользователи</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-car" role="tab"
+               aria-controls="nav-car" aria-selected="false">Все объявления</a>
+            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-new-car" role="tab"
+               aria-controls="nav-new-car" aria-selected="false">Новые объявления</a>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-user" role="tabpanel" aria-labelledby="nav-user-tab">
+            <table class="table table-striped my-2">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Логин</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Активный</th>
+                    <th scope="col">Админ</th>
+                    <th scope="col">Изменить</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="user: ${findAllUsers}">
+                    <th scope="row" th:text="${user.id}"></th>
+                    <td th:text="${user.username}"></td>
+                    <td th:text="${user.email}"></td>
+                    <td>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="isActive" th:disabled="disabled"
+                                   th:checked="${user.active}"/>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="isAdmin" th:disabled="disabled"
+                                   th:checked="${user.authorities.contains(roleAdmin)}"/>
+                        </div>
+                    </td>
+                    <td>
+                        <a class="text-decoration-none" href="#">Изменить</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="nav-car" role="tabpanel" aria-labelledby="nav-car-tab">
+            <table class="table table-striped my-2">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Марка</th>
+                    <th scope="col">Модель</th>
+                    <th scope="col">Владелец</th>
+                    <th scope="col">Изменить</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="car: ${findAllCars}">
+                    <th scope="row" th:text="${car.id}"></th>
+                    <td th:text="${car.mark}"></td>
+                    <td th:text="${car.model}"></td>
+                    <td th:text="${car.userCar.username}"></td>
+                    <td>
+                        <a class="text-decoration-none" href="#">Удалить</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="nav-new-car" role="tabpanel" aria-labelledby="nav-new-car-tab">
+            <table class="table table-striped my-2">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Владелец</th>
+                    <th scope="col">Марка</th>
+                    <th scope="col">Изменить</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Alex</td>
+                    <td>VW</td>
+                    <td>
+                        <a class="text-decoration-none" href="#">Изменить</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+</html>
