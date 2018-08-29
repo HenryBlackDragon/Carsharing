@@ -1,7 +1,6 @@
 package com.alex.test.controller;
 
 import com.alex.test.model.Car;
-import com.alex.test.model.User;
 import com.alex.test.services.AdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,6 @@ import javax.validation.Valid;
 import java.util.Map;
 
 import static com.alex.test.controller.ControllerUtils.getUserFromSecurityContextHolder;
-import static com.alex.test.controller.ControllerUtils.updateSecurityContextHolder;
 
 @Controller
 public class AdController {
@@ -45,9 +43,7 @@ public class AdController {
             return "new_ad";
         }
 
-        User user = adService.createNewAd(getUserFromSecurityContextHolder().getEmail(), car);
-
-        updateSecurityContextHolder(user);
+        adService.createNewAd(getUserFromSecurityContextHolder().getEmail(), car);
 
         model.addAttribute("", "");
 

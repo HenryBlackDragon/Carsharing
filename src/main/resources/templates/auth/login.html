@@ -18,11 +18,13 @@
             <h2 class="text-decoration">Carsharing</h2>
         </div>
 
-        <div th:if="${error}" class="border-around block-error">
+        <div th:if="${error}" class="alert border-around block-error">
             Неправильный email или пароль
+            <button th:replace="/fragments/button :: close-button"></button>
         </div>
-        <div th:if="${logout}" class="border-around block-logout">
-            You have been logged out
+        <div th:if="${logout}" class="alert border-around block-logout">
+            <span>Вы вышли из вашей учетной записи</span>
+            <button th:replace="/fragments/button :: close-button"></button>
         </div>
 
         <div class="border-around">
@@ -49,5 +51,15 @@
         Еще не зарегистрированы? <a href="/registration">Создать аккаунт</a>
     </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </body>
 </html>

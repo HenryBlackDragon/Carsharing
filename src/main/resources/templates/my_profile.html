@@ -14,7 +14,7 @@
 <body>
 <nav th:replace="/fragments/nav :: head_nav_panel"></nav>
 
-<div class="container mt-3">
+<div class="container">
     <div class="row">
         <div class="col-3 float-left pr-4">
             <nav th:replace="/fragments/nav :: profile_nav_panel" class="menu"></nav>
@@ -41,7 +41,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <button type="submit" class="btn btn-success" name="update_profile">Обновить профиль
                             </button>
-                            <a href="/admin_panel"
+                            <a class="text-decoration-none" href="/admin_panel"
                                th:if="${user.authorities.contains(roleAdmin)}">Панель администратора</a>
                         </div>
                     </form>

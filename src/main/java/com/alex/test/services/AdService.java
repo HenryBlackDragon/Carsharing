@@ -12,7 +12,7 @@ public class AdService {
     @Autowired
     private UserRepository userRepository;
 
-    public User createNewAd(String email, Car car) {
+    public void createNewAd(String email, Car car) {
         User userByEmail = userRepository.findUserByEmail(email);
 
         car.setUserCar(userByEmail);
@@ -51,6 +51,5 @@ public class AdService {
 //        userByEmail.setCars(cars);
         userRepository.save(userByEmail);
 
-        return userByEmail;
     }
 }

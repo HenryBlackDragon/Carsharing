@@ -54,10 +54,16 @@ public class Car {
 
     private Integer fuelConsumption;
 
+    @Lob
+    @Column(columnDefinition = "BLOB")
     private String dataAboutCar;
 
+    @Lob
+    @Column(columnDefinition = "BLOB")
     private String carDamages;
 
+    @Lob
+    @Column(columnDefinition = "BLOB")
     private String insuranceInformation;
 
     @NotNull(message = "Укажите цену")
@@ -65,7 +71,9 @@ public class Car {
 
     private String typePrice;
 
+    @Lob
     @NotBlank(message = "Укажите текст обявления")
+    @Column(columnDefinition = "BLOB")
     private String text;
 
     private String photo;
@@ -76,6 +84,8 @@ public class Car {
 //    protected Set<Photo> photos;
 
     // TODO: 20
+
+    private boolean active;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -6,7 +6,7 @@
 <body>
 
 <div class="container" th:fragment="desk (cars)">
-    <div class="card-columns my-2">
+    <div class="card-columns">
         <div class="card" th:each="car: ${cars}">
             <img class="card-img-top tes" src="/static/images/volkswagen-polo_1.jpg"
                  th:src="@{/images/volkswagen-polo_1.jpg}" alt="Card image cap"/>
@@ -39,6 +39,120 @@
                         X
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="gray-border" th:fragment="preview (oneCarById)">
+    <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselIndicators" data-slide-to="1"></li>
+            <li data-target="#carouselIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100 img-height" src="/static/images/volkswagen-polo_1.jpg"
+                     th:src="@{/images/volkswagen-polo_1.jpg}" alt="First slide"/>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100 img-height" src="/static/images/volkswagen-polo_1.jpg"
+                     th:src="@{/images/polo-2.jpg}" alt="Second slide"/>
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100 img-height" src="/static/images/volkswagen-polo_1.jpg"
+                     th:src="@{/images/polo-3.jpg}" alt="Second slide"/>
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+    <div class="card-body">
+
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <p><span>Марка: </span><span th:text="${oneCarById.mark}"></span></p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <p><span>Модель: </span><span th:text="${oneCarById.model}"></span></p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <p><span>Год выпуска: </span><span th:text="${oneCarById.releaseYear}"></span></p>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <p><span>Гос. номер: </span><span th:text="${oneCarById.stateNum}"></span></p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <p><span>Пробег: </span><span th:text="${oneCarById.mileage}"></span></p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <p><span>Кол. мест: </span><span th:text="${oneCarById.countOfSeats}"></span></p>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <p><span>Тип коробки передач: </span><span th:text="${oneCarById.boxType}"></span></p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <p><span>Тип кузова: </span><span th:text="${oneCarById.bodyType}"></span></p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <p><span>Привод: </span><span th:text="${oneCarById.gear}"></span></p>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <p><span>ДВС/электрическая: </span><span th:text="${oneCarById.engine}"></span></p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <p><span>Тип топлива: </span><span th:text="${oneCarById.fuelType}"></span></p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <p><span>Расход топлива: </span><span th:text="${oneCarById.fuelConsumption}"></span></p>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-4 mb-3">
+                <p><span>Наличие дополнительных аксессуаров: </span><span
+                        th:text="${oneCarById.dataAboutCar}"></span></p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <p><span>Данные о состоянии машины: </span><span th:text="${oneCarById.carDamages}"></span>
+                </p>
+            </div>
+            <div class="col-md-4 mb-3">
+                <p><span>Информация о страховке: </span><span
+                        th:text="${oneCarById.insuranceInformation}"></span>
+                </p>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-12 mb-3">
+                <p><span>Текст объявления: </span><span th:text="${oneCarById.text}"></span></p>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-8">
+                <span>Владелец: </span><span th:text="${oneCarById.userCar.username}"></span>
+            </div>
+            <div class="col-3">
+                <span>Цена: </span><span th:text="${oneCarById.price} + ${oneCarById.typePrice}"></span>
             </div>
         </div>
     </div>

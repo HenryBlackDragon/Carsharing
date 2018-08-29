@@ -1,7 +1,7 @@
 package com.alex.test.controller;
 
 import com.alex.test.model.Car;
-import com.alex.test.services.MainService;
+import com.alex.test.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -23,14 +23,16 @@ import static com.alex.test.controller.ControllerUtils.getAuthentication;
 public class MainController {
 
     @Autowired
-    private MainService mainService;
+    private CarService carService;
 
     @RequestMapping("/")
     public String getMainPage(Model model) {
-        List<Car> cars = mainService.getAllCars();
+        List<Car> cars = carService.getAllActiveCars();
         if (!CollectionUtils.isEmpty(cars)) {
             model.addAttribute("cars", cars);
         }
+
+        carService.getAllNotActiveCars().forEach(System.out::println);
 
         return "mainpage";
     }
