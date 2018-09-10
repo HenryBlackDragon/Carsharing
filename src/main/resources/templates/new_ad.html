@@ -10,13 +10,13 @@
     <link rel="stylesheet" href="/static/css/my_profile.css" th:href="@{/css/my_profile.css}" type="text/css"/>
     <link rel="stylesheet" href="/static/css/mainpage.css" th:href="@{/css/mainpage.css}" type="text/css"/>
     <link rel="stylesheet" href="/static/css/basic.css" th:href="@{/css/new_ad.css}" type="text/css"/>
-
+    <link rel="stylesheet" href="/static/css/photo_preview.css" th:href="@{/css/photo_preview.css}" type="text/css"/>
 </head>
 <body>
 <nav th:replace="/fragments/nav :: head_nav_panel"></nav>
 
 <div class="container">
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
         <div class="" style="color: #666666;">
             <small>Максимально подробно опишите ваш автомобиль. Это оставляет хорошее впечатление о вас.
@@ -241,7 +241,7 @@
                 <textarea class="form-control" id="carDamages" rows="3" name="carDamages"></textarea>
             </div>
             <div class="col-md-4 mb-3">
-                <label for="dataAboutCar">Наличие дополнительных аксессуаров:</label>
+                <label for="dataAboutCar">Наличие доп. аксессуаров:</label>
                 <textarea class="form-control" id="dataAboutCar" rows="3" name="dataAboutCar"></textarea>
             </div>
             <div class="col-md-4 mb-3">
@@ -265,9 +265,12 @@
 
         <div class="form-row">
             <div class="col-md-12 mb-3">
-                <label for="files">Выберите файлы:</label>
-                <!--<input type="file" class="custom-file-input" id="files" name="files" multiple="multiple"/>-->
-                <input type="file" class="" id="files" name="files"/>
+                <label class="btn btn-primary photo-btn" for="carPhotos">Загрузить фото</label>
+                <input type="file" class="custom-file-input" id="carPhotos" name="carPhotos"
+                       accept="image/gif, image/jpg, image/jpeg, image/png" th:multiple="multiple" th:hidden="hidden"/>
+            </div>
+            <div class="form-row">
+                <div id="outputMulti" class="d-flex flex-wrap preview-block col-md-12"></div>
             </div>
         </div>
 
@@ -296,7 +299,7 @@
         <!--// protected Set-->
         <!--<Photo> photos;-->
 
-        <button class="btn btn-primary" type="submit">Разместить объявление</button>
+        <button class="btn btn-primary" type="submit" onclick="send()">Разместить объявление</button>
     </form>
 </div>
 
@@ -309,5 +312,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+<script src="/static/js/test.js" th:src="@{/js/test.js}"></script>
 </body>
 </html>

@@ -1,0 +1,37 @@
+.photo {
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+}
+
+/*.button-del {*/
+    /*font-size: 0.8rem;*/
+    /*opacity: 0;*/
+    /*transition: opacity .3s;*/
+    /*color: white;*/
+    /*background: rgba(189, 24, 25, 0.83);*/
+    /*border: 1px solid black;*/
+    /*border-top: none;*/
+/*}*/
+
+/*.button-main {*/
+    /*font-size: 0.8rem;*/
+    /*opacity: 0;*/
+    /*transition: opacity .3s;*/
+    /*color: white;*/
+    /*background: #aaaa00;*/
+    /*border: 1px solid black;*/
+    /*border-bottom: none;*/
+/*}*/
+
+/*.preview-block > div:hover .button-del, .preview-block > div:hover .button-main {*/
+    /*opacity: 1;*/
+    /*cursor: pointer;*/
+    /*transition: opacity .3s;*/
+/*}*/
+
+/*.preview-block > div:first-child .button-main {*/
+    /*opacity: 1;*/
+    /*cursor: not-allowed;*/
+    /*pointer-events: none;*/
+/*}*/

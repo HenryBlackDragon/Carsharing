@@ -8,11 +8,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.util.Map;
 
-import static com.alex.test.controller.ControllerUtils.getUserFromSecurityContextHolder;
+import static com.alex.test.controller.UtilsController.getUserFromSecurityContextHolder;
 
 @Controller
 public class AdController {
@@ -27,58 +29,22 @@ public class AdController {
     }
 
     @PostMapping("/new_ad")
-    public String createNewAd(@Valid Car car,
+    public String createNewAd(@RequestParam("carPhotos") MultipartFile[] file,
+                              @Valid Car car,
                               BindingResult bindingResult,
                               Model model) {
-//        if (file.getOriginalFilename().equals("")) {
-//            model.addAttribute("photoError", "");
-//
-//            return "new_add";
-//        }
-
         if (bindingResult.hasErrors()) {
-            Map<String, String> errorsMap = ControllerUtils.getErrorsMap(bindingResult);
+            Map<String, String> errorsMap = UtilsController.getErrorsMap(bindingResult);
             model.mergeAttributes(errorsMap);
 
             return "new_ad";
         }
 
-        adService.createNewAd(getUserFromSecurityContextHolder().getEmail(), car);
+        adService.createNewAd(file, getUserFromSecurityContextHolder().getEmail(), car);
 
         model.addAttribute("", "");
 
-        return "new_ad";
+        return "redirect:/new_ad";
     }
-
-//    @PostMapping(value = "/my_profile", params = "photo")
-//    public String addPhoto(Model model) throws IOException {
-//
-//        User find = getUserFromSecurityContextHolder();
-//
-//
-//        if (file != null) {
-//            File uploadDir = new File(uploadPath);
-//
-//            if (!uploadDir.exists()) {
-//                uploadDir.mkdir();
-//            }
-//
-//            String uuidFile = UUID.randomUUID().toString();
-//            String resultFile = uuidFile + "." + file.getOriginalFilename();
-//
-//            file.transferTo(new File(uploadPath + "/" + resultFile));
-//
-//            find.setPhoto(resultFile);
-//            updateSecurityContextHolder(find);
-//
-//            userRepository.save(find);
-//
-//            User userFromSecurityContextHolder = getUserFromSecurityContextHolder();
-//
-//            model.addAttribute("user", userFromSecurityContextHolder);
-//        }
-//
-//        return "my_profile";
-//    }
 
 }

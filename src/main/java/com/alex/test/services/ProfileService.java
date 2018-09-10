@@ -4,13 +4,25 @@ import com.alex.test.model.DataPassport;
 import com.alex.test.model.DrivingLicense;
 import com.alex.test.model.User;
 import com.alex.test.repository.UserRepository;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.UUID;
 
 @Service
 public class ProfileService {
+
+    @Value("${upload.path}")
+    private String uploadPath;
 
     @Autowired
     private UserRepository userRepository;
@@ -98,5 +110,13 @@ public class ProfileService {
         userRepository.save(userByEmail);
 
         return userByEmail;
+    }
+
+    public void updateUserPhoto(MultipartFile file, User user) throws IOException {
+        String fullPath = uploadPath + "/" + user.getUsername() + "/userphoto";
+
+        user.getUserInfo().setPhoto(UtilsService.addUserPhotoToDir(file, fullPath));
+
+        userRepository.save(user);
     }
 }

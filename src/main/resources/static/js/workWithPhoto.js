@@ -1,18 +1,18 @@
-function onFileSelect(e) {
+document.getElementById('userPhoto').addEventListener('change', onFileSelect, false);
+
+function onFileSelect(evt) {
     var
-        f = e.target.files[0], // Первый выбранный файл
+        f = evt .target.files[0],
         reader = new FileReader,
-        place = document.getElementById("imageTest") // Сюда покажем картинку
+        place = document.getElementById("imgUserPhoto")
     ;
     reader.readAsDataURL(f);
-    reader.onload = function (e) { // Как только картинка загрузится
+    reader.onload = function (e) {
         place.src = e.target.result;
     };
 
     $('#modalCenter').modal('show');
 }
-
-document.getElementById('userPhoto').addEventListener('change', onFileSelect, false);
 
 function closeModal() {
     document.getElementById("userPhoto").value = "";

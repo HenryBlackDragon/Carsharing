@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import java.util.List;
 
-import static com.alex.test.controller.ControllerUtils.getAuthentication;
+import static com.alex.test.controller.UtilsController.getAuthentication;
 
 @Controller
 public class MainController {
@@ -31,8 +31,6 @@ public class MainController {
         if (!CollectionUtils.isEmpty(cars)) {
             model.addAttribute("cars", cars);
         }
-
-        carService.getAllNotActiveCars().forEach(System.out::println);
 
         return "mainpage";
     }

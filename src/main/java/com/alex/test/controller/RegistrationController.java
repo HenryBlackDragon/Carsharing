@@ -26,7 +26,7 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String addUser(@Valid User user, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            Map<String, String> errorsMap = ControllerUtils.getErrorsMap(bindingResult);
+            Map<String, String> errorsMap = UtilsController.getErrorsMap(bindingResult);
             model.mergeAttributes(errorsMap);
 
             return "auth/registration";

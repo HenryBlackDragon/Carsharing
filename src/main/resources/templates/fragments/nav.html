@@ -7,7 +7,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-2" th:fragment="head_nav_panel">
     <div class="container">
         <a class="navbar-brand text-decoration" href="#">Carsharing</a>
-
         <ul class="navbar-nav">
             <li class="nav-item active">
                 <a class="nav-link" href="/">Главная</a>
@@ -25,8 +24,15 @@
             <div class="btn-group">
                 <button class="btn btn-outline-dark dropdown-toggle" type="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                    <img src="/static/images/ghost.png" th:src="@{/images/ghost.png}" alt=""
-                         class="round"/>
+                    <img src="#"
+                         th:with="user=${T(com.alex.test.controller.UtilsController)
+                                                .getUserFromSecurityContextHolder()},
+                                  photoUser=(${ user!= null} ? '/photo/'
+                                                 + ${user.username} + '/userphoto/'
+                                                 + ${user.userInfo.photo}
+                                   : '/images/ghost.png')"
+                         th:src="@{${photoUser}}"
+                         class="round p-0"/>
                 </button>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" href="/my_profile">Личный кабинет</a>

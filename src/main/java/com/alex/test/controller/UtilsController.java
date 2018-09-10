@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-public class ControllerUtils {
+public class UtilsController {
     static Map<String, String> getErrorsMap(BindingResult bindingResult) {
         Collector<FieldError, ?, Map<String, String>> fieldErrorMapCollector = Collectors.toMap(
                 fieldError -> fieldError.getField() + "Error",
@@ -22,7 +22,7 @@ public class ControllerUtils {
         return bindingResult.getFieldErrors().stream().collect(fieldErrorMapCollector);
     }
 
-    static User getUserFromSecurityContextHolder() {
+    public static User getUserFromSecurityContextHolder() {
         return (User) getAuthentication().getPrincipal();
     }
 

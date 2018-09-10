@@ -46,13 +46,47 @@
                         </div>
                     </form>
                 </div>
+                <form method="post" enctype="multipart/form-data">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
 
-                <div class="profile-photo">
-                    <img src="/static/images/ghost.png" th:src="@{/images/ghost.png}" alt=""/>
-                    <div>
-                        <button class="btn btn-outline-success photo-btn">Изменить фото</button>
+                    <div class="profile-photo">
+                        <img src="/static/images/ghost.png"
+                             th:with="photoUser=(${user.userInfo.photo != null} ? '/photo/'
+                                                 + ${user.username} + '/userphoto/'
+                                                 + ${user.userInfo.photo} : '/images/ghost.png')"
+                             th:src="@{${photoUser}}"/>
+                        <div>
+                            <label class="btn btn-outline-success photo-btn" for="userPhoto">Изменить фото</label>
+                            <input type="file" class="custom-file-input" id="userPhoto" name="file"
+                                   accept="image/gif, image/jpg, image/jpeg, image/png"
+                                   th:hidden="hidden"/>
+                        </div>
                     </div>
-                </div>
+
+                    <div class="modal fade" id="modalCenter" tabindex="-1" role="dialog"
+                         aria-labelledby="modalCenterTitle"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background: #ececec">
+                                    <h5 class="modal-title" id="exampleModalCenterTitle">Новое изображение профиля:</h5>
+                                    <button type="button" class="close" aria-label="Close" onclick="closeModal()">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <img id="imgUserPhoto" class="w-100" src="#"/>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-success w-100" name="photo">
+                                        Сохранить
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
             </div>
 
             <div th:if="${passportData}">
@@ -117,43 +151,6 @@
                 </div>
             </div>
 
-            <!--<form method="post" enctype="multipart/form-data">-->
-            <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
-            <!--<div class="custom-file">-->
-            <!--<input type="file" class="custom-file-input" id="files" name="files" multiple="multiple"-->
-            <!--/>-->
-            <!--<label class="custom-file-label" for="files">Выберите файлы:</label>-->
-            <!--</div>-->
-            <!--<div>-->
-            <!--<button class="btn btn-outline-success photo-btn" name="photo">фото</button>-->
-            <!--</div>-->
-            <!--</form>-->
-
-            <!--<div id="preview">-->
-
-            <!--</div>-->
-
-            <!--<form method="post" enctype="multipart/form-data" id="uploadImages">-->
-            <!--<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>-->
-            <!--<input type="file" id="addImages" multiple="multiple" name="files"/>-->
-            <!--<ul id="uploadImagesList">-->
-            <!--<li class="item template">-->
-            <!--<span class="img-wrap">-->
-            <!--<img src="image.jpg" alt=""/>-->
-            <!--</span>-->
-            <!--<span class="delete-link" title="Удалить">Удалить</span>-->
-            <!--</li>-->
-            <!--</ul>-->
-            <!--<div class="clear"></div>-->
-            <!--<div>-->
-            <!--<input type="submit" value="Отправить" name="photo"/>-->
-            <!--</div>-->
-            <!--</form>-->
-
-
-            <!--<div th:if="${user}">-->
-            <!--<img th:src="@{'/photo/'+${user.getPhoto()}}"/>-->
-            <!--</div>-->
         </div>
     </div>
 </div>
@@ -167,5 +164,6 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+<script src="/static/js/workWithPhoto.js" th:src="@{/js/workWithPhoto.js}"></script>
 </body>
 </html>

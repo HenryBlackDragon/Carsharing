@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -76,12 +78,8 @@ public class Car {
     @Column(columnDefinition = "BLOB")
     private String text;
 
-    private String photo;
-
-//    @OneToMany(mappedBy = "photoCars",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true)
-//    protected Set<Photo> photos;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "photoCars")
+    private List<Photo> photos;
 
     // TODO: 20
 

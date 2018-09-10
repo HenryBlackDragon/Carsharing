@@ -4,21 +4,24 @@ import com.alex.test.model.DataPassport;
 import com.alex.test.model.DrivingLicense;
 import com.alex.test.model.Role;
 import com.alex.test.model.User;
+import com.alex.test.repository.UserRepository;
 import com.alex.test.services.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.Map;
 
-import static com.alex.test.controller.ControllerUtils.getUserFromSecurityContextHolder;
-import static com.alex.test.controller.ControllerUtils.updateSecurityContextHolder;
+import static com.alex.test.controller.UtilsController.getUserFromSecurityContextHolder;
+import static com.alex.test.controller.UtilsController.updateSecurityContextHolder;
 
 @Controller
 public class ProfileController {
@@ -26,8 +29,8 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
-    @Value("${upload.path}")
-    private String uploadPath;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping("/my_profile")
     public String getProfile(Model model) {
@@ -115,7 +118,7 @@ public class ProfileController {
     @PostMapping(value = "/passport", params = "data_passport")
     public String addDataPassport(@Valid DataPassport dataPassport, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            Map<String, String> errorsMap = ControllerUtils.getErrorsMap(bindingResult);
+            Map<String, String> errorsMap = UtilsController.getErrorsMap(bindingResult);
             model.mergeAttributes(errorsMap);
 
             return "data_passport";
@@ -133,7 +136,7 @@ public class ProfileController {
     @PostMapping(value = "/driver_license", params = "driver_license")
     public String addDriverLicense(@Valid DrivingLicense drivingLicense, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            Map<String, String> errorsMap = ControllerUtils.getErrorsMap(bindingResult);
+            Map<String, String> errorsMap = UtilsController.getErrorsMap(bindingResult);
             model.mergeAttributes(errorsMap);
 
             return "driver_license";
@@ -148,37 +151,11 @@ public class ProfileController {
         return "driver_license";
     }
 
-//    @PostMapping(value = "/my_profile", params = "photo")
-//    public String addPhoto(@RequestParam("files") MultipartFile file, Model model) throws IOException {
-//
-//        User find = getUserFromSecurityContextHolder();
-//        if(file.getOriginalFilename().equals("")){
-//
-//            return "";
-//        }
-//
-//        if (file != null) {
-//            File uploadDir = new File(uploadPath);
-//
-//            if (!uploadDir.exists()) {
-//                uploadDir.mkdir();
-//            }
-//
-//            String uuidFile = UUID.randomUUID().toString();
-//            String resultFile = uuidFile + "." + file.getOriginalFilename();
-//
-//            file.transferTo(new File(uploadPath + "/" + resultFile));
-//
-//            find.setPhoto(resultFile);
-//            updateSecurityContextHolder(find);
-//
-//            userRepository.save(find);
-//
-//            User userFromSecurityContextHolder = getUserFromSecurityContextHolder();
-//
-//            model.addAttribute("user", userFromSecurityContextHolder);
-//        }
-//
-//        return "my_profile";
-//    }
+    @PostMapping(value = "/my_profile", params = "photo")
+    public String addPhoto(@RequestParam("file") MultipartFile file, Model model) throws IOException {
+        profileService.updateUserPhoto(file, getUserFromSecurityContextHolder());
+
+        return "redirect:/my_profile";
+    }
+
 }
